@@ -1,0 +1,14 @@
+{
+  "name": "cocktail.next",
+  "version": "0.0.0",
+  "description": "Applying traits as decorators",
+  "main": "src/index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maximiliano Fierro",
+  "license": "MIT"
+}
