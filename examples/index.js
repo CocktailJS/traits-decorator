@@ -15,7 +15,7 @@ class TEnum {
 }
 
 
-@traits(TEnum::alias({ foo: 'enumFoo' }) )
+@traits(TEnum::alias({ foo: 'enumFoo' }))
 class MyClass {
 
     constructor (collection: []) {
@@ -28,3 +28,4 @@ let obj = new MyClass([1,2,3])
 console.log(obj.first()) // 1
 
 obj.enumFoo() // enum foo
+

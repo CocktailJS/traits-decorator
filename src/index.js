@@ -1,6 +1,7 @@
 
 'use strict';
 
+const _REF_ = Symbol();
 
 function _filterKeys(key) {
     return !key.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/);
@@ -49,7 +50,7 @@ function _applyIfNotExcluded(method, traitProto, subject, aliases, excluded) {
 // trait or trait descriptor
 
 function traitReference() {
-    return this.ref || this;
+    return this[_REF_] || this;
 }
 
 function fromAliases() {
@@ -67,7 +68,7 @@ function _apply(t) {
     let aliases = t::fromAliases();
     let excluded = t::fromExcludes();
     let trait = t::traitReference();
-    let tp = trait.prototype;
+    let tp = trait.prototype || t;
 
     Object.getOwnPropertyNames(tp)
         .filter(_filterKeys)
@@ -82,7 +83,7 @@ function addTrait(t) {
 }
 
 function asDescriptor() {
-    return (this.prototype ? {ref: this} : this);
+    return (this.prototype || !this[_REF_] ? {[_REF_]: this} : this);
 }
 
 
