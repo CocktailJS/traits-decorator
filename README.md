@@ -14,6 +14,20 @@ Applicable to `class` definition. It will apply all the given Traits to the clas
 @traits(TExample) class MyClass {}
 ```
 
+###@requires(description1, ...descriptionN)
+Applicable to a method defined in a Trait. The decorator **does nothing** but it serves as a documentation to reflect what method / property the method needs access to.
+
+```js
+class TFoo {
+
+    @requires('bar: {String}')
+    fooBar() {
+        console.log('foo,' + this.bar);
+    }
+}
+```
+
+
 ## Bindings
 
 ###excludes(Method1, ...MethodN)

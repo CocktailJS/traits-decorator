@@ -18,6 +18,7 @@ class TEnum {
 @traits(TEnum::alias({ foo: 'enumFoo' }))
 class MyClass {
 
+
     constructor (collection: []) {
         this.collection = collection
     }

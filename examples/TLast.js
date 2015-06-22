@@ -1,6 +1,10 @@
 'use strict';
 
+import { requires } from '../'
+
 export default class TLast {
+    
+    @requires('collection:[]')
     last() {
         let collection = this.collection;
         let l = collection.length;

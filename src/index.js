@@ -8,25 +8,17 @@ function _filterKeys(key) {
 }
 
 function _applyMethod(method, traitProto, subject, aliases, excluded) {
-    _applyIfNotExcluded(method, traitProto, subject, aliases, excluded);
-    
+    _applyIfNotExcluded(method, traitProto, subject, aliases, excluded);   
 }
 
 function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
-    let 
-        // requiredMethodName = Requires.requiredMethod.name,
-        subjectMethod = subjectProto[methodName],
+    let subjectMethod = subjectProto[methodName],
         traitMethod = traitProto[methodName],
         sameMethodName = (subjectMethod && traitMethod),
         methodsAreNotTheSame = sameMethodName && (subjectMethod.toString() !== traitMethod.toString());
-        // traitMethodIsNotARequired = sameMethodName && (traitMethod.name !== requiredMethodName),
-        // subjecMethodIsNotARequired = sameMethodName && (subjectMethod.name !== requiredMethodName);
 
 
-    if (
-        sameMethodName && methodsAreNotTheSame 
-        // && traitMethodIsNotARequired && subjecMethodIsNotARequired
-    ) {
+    if ( sameMethodName && methodsAreNotTheSame ) {
         throw new Error('Method named: ' + methodName + ' is defined twice.' );
     }
 }
@@ -40,7 +32,7 @@ function _applyIfNotExcluded(method, traitProto, subject, aliases, excluded) {
        
         _raiseErrorIfConflict(alias, traitProto, subject);
        
-        if (!subject[alias] || subject[alias] === Requires.requiredMethod) {
+        if (!subject[alias] || _isRequiredMethod(subject, alias)) {
             Object.defineProperty(subject, alias, Object.getOwnPropertyDescriptor(traitProto, method));
         }
     }
@@ -49,7 +41,7 @@ function _applyIfNotExcluded(method, traitProto, subject, aliases, excluded) {
 
 // trait or trait descriptor
 
-function traitReference() {
+function getReference() {
     return this[_REF_] || this;
 }
 
@@ -67,8 +59,8 @@ function _apply(t) {
     let subject = this;
     let aliases = t::fromAliases();
     let excluded = t::fromExcludes();
-    let trait = t::traitReference();
-    let tp = trait.prototype || t;
+    let ref = t::getReference();
+    let tp = ref.prototype || ref;
 
     Object.getOwnPropertyNames(tp)
         .filter(_filterKeys)
@@ -106,6 +98,11 @@ export function traits(...traitList) {
     }
 }
 
+
+export function requires() {
+
+    return function (target, name, descriptor) {  /*do nothing*/ };
+}
 
 // bindings
 

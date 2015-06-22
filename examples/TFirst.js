@@ -1,9 +1,11 @@
 'use strict';
 
-export default class TFirst {
-    // @required
-    // collection() {}
+import { requires } from '../'
 
+
+export default class TFirst {
+
+    @requires('collection:[]')
     first() {
         return this.collection[0];
     }

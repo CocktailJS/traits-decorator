@@ -3,14 +3,25 @@
 import { traits, excludes, alias }  from '../'
 
 
-const Mixin = {
-    enumFoo() {
-        console.log('foo from Mixin')
+const FooMixin = {
+    foo() {
+        console.log('foo from FooMixin')
     }
 }
 
 
-@traits(Mixin)
+const BarMixin  = {
+    bar() {
+        console.log('bar')
+    },
+
+    foo() {
+        console.log('foo from BarMixin')
+    }
+}
+
+
+@traits(FooMixin, BarMixin::excludes('foo'))
 class MyClass {
 
     constructor (collection: []) {
@@ -21,4 +32,4 @@ class MyClass {
 let obj = new MyClass([1,2,3])
 
 
-obj.enumFoo()  // foo from Mixin
+obj.foo()  // foo from FooMixin
