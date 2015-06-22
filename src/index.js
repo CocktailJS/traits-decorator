@@ -49,7 +49,7 @@ function _applyIfNotExcluded(method, traitProto, subject, aliases, excluded) {
 // trait or trait descriptor
 
 function traitReference() {
-    return this.trait || this;
+    return this.ref || this;
 }
 
 function fromAliases() {
@@ -76,14 +76,26 @@ function _apply(t) {
         })
 }
 
-
 function addTrait(t) {
     let subject = this.prototype;
     subject::_apply(t);
 }
 
+function asDescriptor() {
+    return (this.prototype ? {ref: this} : this);
+}
 
 
+// decorators
+
+/**
+ * @decorator traits
+ * @params Trait1, ...TraitN
+ * @usage
+ *    
+ *    @traits(TExample) class MyClass {}
+ *    
+ */
 export function traits(...traitList) {
 
     return function (target) {
@@ -94,15 +106,30 @@ export function traits(...traitList) {
 }
 
 
-export function as(options: {alias: {}, excludes: []}) {
-    let {alias, excludes} = options;
-    let descriptor;
+// bindings
 
-    descriptor = {
-        trait: this, 
-        alias,
-        excludes
-    }
+export function excludes(...excludes) {
+    let descriptor = this::asDescriptor();
+
+    descriptor.excludes = excludes;
+
+    return descriptor;
+}
+
+export function alias(aliases: {}) {
+    let descriptor = this::asDescriptor();
+
+    descriptor.alias = aliases;
+
+    return descriptor;
+}
+
+export function as(options: {alias: {}, excludes: []}) {
+    let descriptor = this::asDescriptor();
+
+    descriptor
+        ::alias(options.alias)
+        ::excludes(...options.excludes);
 
     return descriptor;
 }
