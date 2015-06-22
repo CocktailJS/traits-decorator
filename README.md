@@ -39,7 +39,7 @@ class MyClass {}
 ```
 
 ###alias(aliases: {})
-Applicable to Trait definition in '@traits'. It will alias the method defined as the `key` with the `value` from the Trait.
+Applicable to Trait definition in '@traits'. It will alias the method defined in the Trait with the `key` as the `value` .
 
 ```js
 @traits(TExample::alias({baz: 'parentBaz'}))
@@ -47,7 +47,7 @@ class MyClass {}
 ```
 
 ###as({alias: {}, excludes: []})
-Applicable to Trait definition in '@traits'. It will apply aliases and excluded method from the Trait
+Applicable to Trait definition in '@traits'. It will apply aliases and excluded methods from the Trait
 
 ```js
 @traits( TExample:as({alias: {baz: 'parentBaz'}, excludes:['foo', 'bar'] }) )
@@ -100,7 +100,7 @@ obj.enumFoo() // enum foo
 
 ## Running the examples
 
-In order to run the examples we need babel and since we are using some functionality like decorators (like @traits) and bindOperator (::) we need to use the `--stage 0` paramenter.
+In order to run the examples we need babel and since we are using some experimental functionality, decorators (@traits) and bindOperator (::) we need to use the `--stage 0` parameter.
 
 
 ```
