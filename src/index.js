@@ -1,4 +1,3 @@
-
 'use strict';
 
 const _REF_ = Symbol();
@@ -79,11 +78,14 @@ function asDescriptor() {
 }
 
 
+// PUBLIC API -----------------------------------
+
 // decorators
 
 /**
  * @decorator traits
- * @params Trait1, ...TraitN
+ * Applies all traits as part of the target class.
+ * @params Trait1, ...TraitN {Class|Object}
  * @usage
  *    
  *    @traits(TExample) class MyClass {}
@@ -98,7 +100,23 @@ export function traits(...traitList) {
     }
 }
 
-
+/**
+ * @decorator requires
+ * Does Nothing. 
+ * It's intended to describe / document what methods or properties should be provided by the host class.
+ * @params Description1, ...DescriptionN {String}
+ * @usage
+ *
+ * class TPrintCollection {
+ * 
+ *     @requires('collection')
+ *     printCollection() {
+ *         console.log(this.collection)
+ *     }    
+ * }    
+ *
+ *    
+ */
 export function requires() {
 
     return function (target, name, descriptor) {  /*do nothing*/ };
@@ -106,6 +124,15 @@ export function requires() {
 
 // bindings
 
+/**
+ * @binding excludes
+ * Excludes the list of methods from the Trait. This is intended to be used within @traits decorator.
+ * @params MethodName1, ...MethodNameN {String}
+ * @usage
+ *
+ * @traits(TExample::excludes('methodOne', 'menthodTwo')) class MyClass {}
+ *
+ */
 export function excludes(...excludes) {
     let descriptor = this::asDescriptor();
 
@@ -114,6 +141,15 @@ export function excludes(...excludes) {
     return descriptor;
 }
 
+/**
+ * @binding alias
+ * Alias the methods defined as key from the Trait as value. This is intended to be used within @traits decorator.
+ * @params alias {Object}
+ * @usage
+ *
+ * @traits(TExample::alias({'methodOne': 'parentMethodOne'})) class MyClass {}
+ *
+ */
 export function alias(aliases: {}) {
     let descriptor = this::asDescriptor();
 
@@ -122,6 +158,17 @@ export function alias(aliases: {}) {
     return descriptor;
 }
 
+/**
+ * @binding as
+ * Shortcut for excludes and alias. This is intended to be used within @traits decorator.
+ * @params options {Object}
+ * @oarams options.alias {Object}
+ * @params options.exludes {String[]}
+ * @usage
+ *
+ * @traits( TExample::as({ alias: {'methodOne': 'parentMethodOne'}, excludes: ['methodTwo'] }) ) class MyClass {}
+ *
+ */
 export function as(options: {alias: {}, excludes: []}) {
     let descriptor = this::asDescriptor();
 
@@ -131,6 +178,3 @@ export function as(options: {alias: {}, excludes: []}) {
 
     return descriptor;
 }
-
-
-

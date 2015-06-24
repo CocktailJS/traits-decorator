@@ -102,6 +102,7 @@ obj.enumFoo() // enum foo
 
 In order to run the examples we need babel and since we are using some experimental functionality, decorators (@traits) and bindOperator (::) we need to use the `--stage 0` parameter.
 
+Run `npm compile` first. Then:
 
 ```
 babel-node --stage 0 examples/index.js
