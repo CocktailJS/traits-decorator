@@ -102,9 +102,16 @@ obj.enumFoo() // enum foo
 
 In order to run the examples we need babel and since we are using some experimental functionality, decorators (@traits) and bindOperator (::) we need to use the `--stage 0` parameter.
 
-Run `npm compile` first. Then:
+Run `npm run compile` first. Then:
 
 ```
 babel-node --stage 0 examples/index.js
 ```
 
+
+## Install
+If you want to use this module you can install it using **npm** and git until it is released on npm:
+
+```
+npm i -S git://github.com/cocktailjs/cocktail.next
+```
