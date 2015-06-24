@@ -2,13 +2,19 @@
   "name": "cocktail.next",
   "version": "0.0.0",
   "description": "Applying traits as decorators",
-  "main": "src/index.js",
-  "directories": {
-    "example": "examples"
-  },
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "echo \"compiling...\" && babel -d lib/ src/",
+    "prepublish": "echo \"pre-publish...\" && npm run compile",
+    "preinstall": "echo \"pre-install...\" && npm run compile"
   },
   "author": "Maximiliano Fierro",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "core-js": "^0.9.18"
+  },
+  "devDependencies": {
+    "babel": "^5.6.6"
+  }
 }
