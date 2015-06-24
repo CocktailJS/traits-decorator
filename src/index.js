@@ -114,12 +114,26 @@ export function traits(...traitList) {
  *         console.log(this.collection)
  *     }    
  * }    
- *
- *    
+ * 
  */
 export function requires() {
 
     return function (target, name, descriptor) {  /*do nothing*/ };
+}
+
+/**
+ * @decorator mixins
+ * Applies all mixins as part of the target class using Object.assign.
+ * @params Mixin1, ...MixinN {Object}
+ * @usage
+ *    
+ *    @mixins(TExample) class MyClass {}
+ *    
+ */
+export function mixins(...mixinsList) {
+    return function (target) {
+        Object.assign(target.prototype, ...mixinsList);
+    }
 }
 
 // bindings

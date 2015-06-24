@@ -27,6 +27,12 @@ class TFoo {
 }
 ```
 
+###@mixins(Mixin1, ...MixinN)
+Applicable to `class` definition. It will apply all the given Mixins Objects to the class using Object.assign
+
+```js
+@mixins(MixinOne, MixinTwo) class MyClass {}
+```
 
 ## Bindings
 

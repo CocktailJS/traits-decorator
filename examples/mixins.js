@@ -1,6 +1,6 @@
 'use strict';
 
-import { traits, excludes, alias }  from '../'
+import { mixins }  from '../'
 
 
 const FooMixin = {
@@ -21,7 +21,7 @@ const BarMixin  = {
 }
 
 
-@traits(FooMixin, BarMixin::excludes('foo'))
+@mixins(FooMixin, BarMixin)
 class MyClass {
 
     constructor (collection: []) {
