@@ -57,7 +57,7 @@ class MyClass {}
 
 
 ## Example
-The `index.js` file showcases the usage. 
+The `examples/index.js` file showcases the usage. 
 
 Basically, we have a few Traits (classes) TFirst, TLast and we combine and apply them by using `traits` decorator:
 
