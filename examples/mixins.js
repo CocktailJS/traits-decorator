@@ -32,4 +32,4 @@ class MyClass {
 let obj = new MyClass([1,2,3])
 
 
-obj.foo()  // foo from FooMixin
+obj.foo()  // foo from BarMixin
