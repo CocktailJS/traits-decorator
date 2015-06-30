@@ -17,8 +17,8 @@ function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
         traitMethod = traitProto[methodName],
         sameMethodName = (subjectMethod && traitMethod),
         methodsAreNotTheSame = sameMethodName && (subjectMethod.toString() !== traitMethod.toString()),
-        traitMethodIsNotARequired = sameMethodName && (traitMethod.name !== _COCKTAIL_REQUIRED_NAME_),
-        subjecMethodIsNotARequired = sameMethodName && (subjectMethod.name !== _COCKTAIL_REQUIRED_NAME_);
+        traitMethodIsNotARequired = sameMethodName && !_isRequiredMethod(traitProto, methodName),
+        subjecMethodIsNotARequired = sameMethodName && !_isRequiredMethod(subjectProto, methodName);
 
 
     if ( sameMethodName && methodsAreNotTheSame && traitMethodIsNotARequired && subjecMethodIsNotARequired) {
@@ -26,6 +26,10 @@ function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
     }
 }
 
+function _isRequiredMethod(target, methodName) {
+    let method = target[methodName]
+    return method && method.name === _COCKTAIL_REQUIRED_NAME_
+}
 
 function _applyIfNotExcluded(method, traitProto, subject, aliases, excluded) {
 
