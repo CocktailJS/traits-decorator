@@ -1,6 +1,8 @@
 'use strict';
 
 const _REF_ = Symbol();
+const _COCKTAIL_REQUIRED_NAME_ = '$$required$$';
+
 
 function _filterKeys(key) {
     return !key.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/);
@@ -14,10 +16,11 @@ function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
     let subjectMethod = subjectProto[methodName],
         traitMethod = traitProto[methodName],
         sameMethodName = (subjectMethod && traitMethod),
-        methodsAreNotTheSame = sameMethodName && (subjectMethod.toString() !== traitMethod.toString());
+        methodsAreNotTheSame = sameMethodName && (subjectMethod.toString() !== traitMethod.toString()),
+        subjecMethodIsNotARequired = sameMethodName && (subjectMethod.name !== _COCKTAIL_REQUIRED_NAME_);
 
 
-    if ( sameMethodName && methodsAreNotTheSame ) {
+    if ( sameMethodName && methodsAreNotTheSame && subjecMethodIsNotARequired) {
         throw new Error('Method named: ' + methodName + ' is defined twice.' );
     }
 }
@@ -185,10 +188,10 @@ export function alias(aliases: {}) {
  */
 export function as(options: {alias: {}, excludes: []}) {
     let descriptor = this::asDescriptor();
-
+    let {alias: _alias, excludes: _excludes} = options;
     descriptor
-        ::alias(options.alias)
-        ::excludes(...options.excludes);
+        ::alias(_alias)
+        ::excludes(..._excludes);
 
     return descriptor;
 }
