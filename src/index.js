@@ -17,10 +17,11 @@ function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
         traitMethod = traitProto[methodName],
         sameMethodName = (subjectMethod && traitMethod),
         methodsAreNotTheSame = sameMethodName && (subjectMethod.toString() !== traitMethod.toString()),
+        traitMethodIsNotARequired = sameMethodName && (traitMethod.name !== _COCKTAIL_REQUIRED_NAME_),
         subjecMethodIsNotARequired = sameMethodName && (subjectMethod.name !== _COCKTAIL_REQUIRED_NAME_);
 
 
-    if ( sameMethodName && methodsAreNotTheSame && subjecMethodIsNotARequired) {
+    if ( sameMethodName && methodsAreNotTheSame && traitMethodIsNotARequired && subjecMethodIsNotARequired) {
         throw new Error('Method named: ' + methodName + ' is defined twice.' );
     }
 }
