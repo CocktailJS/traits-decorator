@@ -1,15 +1,15 @@
 'use strict';
 
-const _REF_ = Symbol();
-const _COCKTAIL_REQUIRED_NAME_ = '$$required$$';
+const _REF_ = Symbol()
+const _COCKTAIL_REQUIRED_NAME_ = '$$required$$'
 
 
 function _filterKeys(key) {
-    return !key.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/);
+    return !key.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)
 }
 
 function _applyMethod(method, traitProto, subject, aliases, excluded) {
-    _applyIfNotExcluded(method, traitProto, subject, aliases, excluded);   
+    _applyIfNotExcluded(method, traitProto, subject, aliases, excluded)
 }
 
 function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
@@ -18,11 +18,11 @@ function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
         sameMethodName = (subjectMethod && traitMethod),
         methodsAreNotTheSame = sameMethodName && (subjectMethod.toString() !== traitMethod.toString()),
         traitMethodIsNotARequired = sameMethodName && !_isRequiredMethod(traitProto, methodName),
-        subjecMethodIsNotARequired = sameMethodName && !_isRequiredMethod(subjectProto, methodName);
+        subjecMethodIsNotARequired = sameMethodName && !_isRequiredMethod(subjectProto, methodName)
 
 
     if ( sameMethodName && methodsAreNotTheSame && traitMethodIsNotARequired && subjecMethodIsNotARequired) {
-        throw new Error('Method named: ' + methodName + ' is defined twice.' );
+        throw new Error('Method named: ' + methodName + ' is defined twice.' )
     }
 }
 
@@ -35,12 +35,12 @@ function _applyIfNotExcluded(method, traitProto, subject, aliases, excluded) {
 
     if (excluded.indexOf(method) === -1) {
        
-        let alias = aliases[method] || method;
+        let alias = aliases[method] || method
        
-        _raiseErrorIfConflict(alias, traitProto, subject);
+        _raiseErrorIfConflict(alias, traitProto, subject)
        
         if (!subject[alias] || _isRequiredMethod(subject, alias)) {
-            Object.defineProperty(subject, alias, Object.getOwnPropertyDescriptor(traitProto, method));
+            Object.defineProperty(subject, alias, Object.getOwnPropertyDescriptor(traitProto, method))
         }
     }
     
@@ -48,41 +48,41 @@ function _applyIfNotExcluded(method, traitProto, subject, aliases, excluded) {
 
 // trait or trait descriptor
 
-function getReference() {
-    return this[_REF_] || this;
+function _reference() {
+    return this[_REF_] || this
 }
 
-function fromAliases() {
-    return this.alias || {};
+function _aliases() {
+    return this.alias || {}
 }
 
-function fromExcludes() {
+function _excludes() {
     return this.excludes || []
 }
 // --
 
 
 function _apply(t) {
-    let subject = this;
-    let aliases = t::fromAliases();
-    let excluded = t::fromExcludes();
-    let ref = t::getReference();
-    let tp = ref.prototype || ref;
+    let subject  = this,
+        aliases  = t::_aliases(),
+        excluded = t::_excludes(),
+        ref      = t::_reference(),
+        tp       = ref.prototype || ref
 
     Object.getOwnPropertyNames(tp)
         .filter(_filterKeys)
         .forEach(function(method) {        
-            _applyMethod(method, tp, subject, aliases, excluded);
+            _applyMethod(method, tp, subject, aliases, excluded)
         })
 }
 
-function addTrait(t) {
-    let subject = this.prototype;
-    subject::_apply(t);
+function _addTrait(t) {
+    let subject = this.prototype
+    subject::_apply(t)
 }
 
-function asDescriptor() {
-    return (this.prototype || !this[_REF_] ? {[_REF_]: this} : this);
+function _asDescriptor() {
+    return (this.prototype || !this[_REF_] ? {[_REF_]: this} : this)
 }
 
 
@@ -100,10 +100,9 @@ function asDescriptor() {
  *    
  */
 export function traits(...traitList) {
-
     return function (target) {
         traitList.forEach(function(trait){
-            target::addTrait(trait)
+            target::_addTrait(trait)
         });
     }
 }
@@ -125,7 +124,6 @@ export function traits(...traitList) {
  * 
  */
 export function requires() {
-
     return function (target, name, descriptor) {  /*do nothing*/ };
 }
 
@@ -140,7 +138,7 @@ export function requires() {
  */
 export function mixins(...mixinsList) {
     return function (target) {
-        Object.assign(target.prototype, ...mixinsList);
+        Object.assign(target.prototype, ...mixinsList)
     }
 }
 
@@ -156,11 +154,11 @@ export function mixins(...mixinsList) {
  *
  */
 export function excludes(...excludes) {
-    let descriptor = this::asDescriptor();
+    let descriptor = this::_asDescriptor()
 
-    descriptor.excludes = excludes;
+    descriptor.excludes = excludes
 
-    return descriptor;
+    return descriptor
 }
 
 /**
@@ -173,11 +171,11 @@ export function excludes(...excludes) {
  *
  */
 export function alias(aliases: {}) {
-    let descriptor = this::asDescriptor();
+    let descriptor = this::_asDescriptor()
 
-    descriptor.alias = aliases;
+    descriptor.alias = aliases
 
-    return descriptor;
+    return descriptor
 }
 
 /**
@@ -192,11 +190,12 @@ export function alias(aliases: {}) {
  *
  */
 export function as(options: {alias: {}, excludes: []}) {
-    let descriptor = this::asDescriptor();
-    let {alias: _alias, excludes: _excludes} = options;
+    let descriptor = this::_asDescriptor(),
+        { alias: _alias, excludes: _excludes } = options
+    
     descriptor
         ::alias(_alias)
-        ::excludes(..._excludes);
+        ::excludes(..._excludes)
 
-    return descriptor;
+    return descriptor
 }
