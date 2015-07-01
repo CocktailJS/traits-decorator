@@ -106,14 +106,22 @@ obj.enumFoo() // enum foo
 
 ## Running the examples
 
-In order to run the examples we need babel and since we are using some experimental functionality, decorators (@traits) and bindOperator (::) we need to use the `--stage 0` parameter.
+In order to run the examples we need babel and since we are using some experimental functionality, decorators (@traits) and bindOperator (::) we need to use the `--stage 0` parameter which is defined in `.babelrc` file.
 
-Run `npm run compile` first. Then:
+Run `npm install` first. Then:
+
+> examples/index.js
 
 ```
-babel-node --stage 0 examples/index.js
+npm run babel -- examples/index.js
 ```
 
+> examples/mixins.js
+
+```
+npm run babel -- examples/mixins.js
+```
+ 
 
 ## Install
 If you want to use this module you can install it using **npm** and git until it is released on npm:
