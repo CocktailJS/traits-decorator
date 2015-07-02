@@ -62,22 +62,42 @@ class MyClass {}
 
 
 
-## Example
-The `examples/index.js` file showcases the usage. 
-
+## Usage
 Basically, we have a few Traits (classes) TFirst, TLast and we combine and apply them by using `traits` decorator:
 
->examples/index.js
+>example.js
 
 ```js
 'use strict';
 
-import { traits, excludes, alias }  from '../'
+import { traits, excludes, alias, requires }  from 'cocktail.next'
 
-import TFirst from './TFirst'
-import TLast  from './TLast'
+class TFirst {
 
+    @requires('collection:[]')
+    first() {
+        return this.collection[0];
+    }
 
+}
+
+class TLast {
+    
+    @requires('collection:[]')
+    last() {
+        let collection = this.collection;
+        let l = collection.length;
+        return collection[l-1];
+    }
+
+    justAnother() {}
+
+    foo() {
+        console.log('from TLast\'s foo');
+    }
+}
+
+//composing a Trait with others
 @traits( TFirst, TLast::excludes('foo', 'justAnother') )
 class TEnum {
 
@@ -86,7 +106,7 @@ class TEnum {
     }
 }
 
-
+//apply trait TEnum
 @traits(TEnum::alias({ foo: 'enumFoo' }) )
 class MyClass {
 
@@ -104,24 +124,13 @@ obj.enumFoo() // enum foo
 ```
 
 
-## Running the examples
+In order to run the `example.js` we need babel and since we are using some experimental functionality, decorators (@traits) and bindOperator (::) we need to use the `--stage 0` parameter which is defined in `.babelrc` file.
 
-In order to run the examples we need babel and since we are using some experimental functionality, decorators (@traits) and bindOperator (::) we need to use the `--stage 0` parameter which is defined in `.babelrc` file.
-
-Run `npm install` first. Then:
-
-> examples/index.js
 
 ```
-npm run babel -- examples/index.js
+babel-node --stage 0 example.js
 ```
 
-> examples/mixins.js
-
-```
-npm run babel -- examples/mixins.js
-```
- 
 
 ## Install
 If you want to use this module you can install it using **npm** and git until it is released on npm:

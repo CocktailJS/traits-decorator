@@ -192,7 +192,7 @@ export function alias(aliases: {}) {
 export function as(options: {alias: {}, excludes: []}) {
     let descriptor = this::_asDescriptor(),
         { alias: _alias, excludes: _excludes } = options
-    
+
     descriptor
         ::alias(_alias)
         ::excludes(..._excludes)
