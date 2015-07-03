@@ -13,6 +13,13 @@
     "name": "Maximiliano Fierro",
     "email": "elmasse@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CocktailJS/traits-decorator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CocktailJS/traits-decorator/issues"
+  },  
   "license": "MIT",
   "devDependencies": {
     "babel": "^5.6.6",
