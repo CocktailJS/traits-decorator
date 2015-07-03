@@ -26,6 +26,13 @@ function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
     }
 }
 
+function _raiseErrorIfItIsState(key, traitProto) {
+    if (typeof traitProto[key] !== 'function') {
+        throw new Error('Trait MUST NOT contain any state. Found: ' + key + ' as state while processing trait');
+    }
+}
+
+
 function _isRequiredMethod(target, methodName) {
     let method = target[methodName]
     return method && method.name === _COCKTAIL_REQUIRED_NAME_
@@ -71,7 +78,8 @@ function _apply(t) {
 
     Object.getOwnPropertyNames(tp)
         .filter(_filterKeys)
-        .forEach(function(method) {        
+        .forEach(function(method) { 
+            _raiseErrorIfItIsState(method, tp)       
             _applyMethod(method, tp, subject, aliases, excluded)
         })
 }

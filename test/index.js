@@ -28,3 +28,16 @@ tap.test('@traits should apply multiple traits to a class', function(t) {
     t.equal(SUT.prototype.bar, Bar.bar, 'bar method should be applied to class')
     t.end()
 })
+
+tap.test('@traits should throw an error if there is state defined in trait', function(t) {
+    const Invalid = { 
+        foo() {},
+        invalid: 1
+    }
+    
+    t.throws(function() {
+        @traits(Invalid) class SUT {}
+    }, 'state is not allowed in a Trait')
+
+    t.end()
+})
