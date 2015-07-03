@@ -1,6 +1,6 @@
 # traits-decorator
 
-[![npm version](https://badge.fury.io/js/traits-decorator.svg)](http://badge.fury.io/js/traits-decorator)
+[![npm version](https://badge.fury.io/js/traits-decorator.svg)](http://badge.fury.io/js/traits-decorator)[![Build Status](https://travis-ci.org/CocktailJS/traits-decorator.svg)](https://travis-ci.org/CocktailJS/traits-decorator)
 
 Experimental library to apply Traits with ES7 decorators.
 
