@@ -1,7 +1,8 @@
 {
   "name": "traits-decorator",
   "version": "1.0.0",
-  "description": "traits as decorator",
+  "description": "Apply traits with decorators",
+  "keywords": ["traits", "decorator", "class"],
   "main": "lib/index.js",
   "scripts": {
     "test": "babel-tape-runner test/*.js",
