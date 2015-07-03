@@ -1,4 +1,7 @@
 # traits-decorator
+
+[![npm version](https://badge.fury.io/js/traits-decorator.svg)](http://badge.fury.io/js/traits-decorator)
+
 Experimental library to apply Traits with ES7 decorators.
 
 ## Install
