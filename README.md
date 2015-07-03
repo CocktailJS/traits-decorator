@@ -130,3 +130,6 @@ If you want to use this module you can install it using **npm** and git until it
 ```
 npm i -S git://github.com/cocktailjs/traits-decorator
 ```
+
+## Update
+@mixins decorator has been removed. If you want to use `mixins` please use [mixins-decorator](https://www.npmjs.com/package/mixins-decorator) package.
