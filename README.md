@@ -1,7 +1,20 @@
 # traits-decorator
-
-## Introduction
 Experimental library to apply Traits with ES7 decorators.
+
+## Install
+
+> using npm
+
+```
+npm i -S traits-decorator
+```
+
+
+> using git repository
+ 
+```
+npm i -S git://github.com/cocktailjs/traits-decorator
+```
 
 ## API
 
@@ -123,13 +136,6 @@ In order to run the `example.js` we need babel and since we are using some exper
 babel-node --stage 0 example.js
 ```
 
-
-## Install
-If you want to use this module you can install it using **npm** and git until it is released on npm:
-
-```
-npm i -S git://github.com/cocktailjs/traits-decorator
-```
 
 ## Update
 @mixins decorator has been removed. If you want to use `mixins` please use [mixins-decorator](https://www.npmjs.com/package/mixins-decorator) package.
