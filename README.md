@@ -42,7 +42,7 @@ class TFoo {
 
 ## Bindings
 
-###excludes(Method1, ...MethodN)
+### excludes(Method1, ...MethodN)
 Applicable to Trait definition in '@traits'. It will exclude the given method names from the Trait.
 
 ```js
@@ -50,7 +50,7 @@ Applicable to Trait definition in '@traits'. It will exclude the given method na
 class MyClass {}
 ```
 
-###alias(aliases: {})
+### alias(aliases: {})
 Applicable to Trait definition in '@traits'. It will alias the method defined in the Trait with the `key` as the `value` .
 
 ```js
@@ -58,7 +58,7 @@ Applicable to Trait definition in '@traits'. It will alias the method defined in
 class MyClass {}
 ```
 
-###as({alias: {}, excludes: []})
+### as({alias: {}, excludes: []})
 Applicable to Trait definition in '@traits'. It will apply aliases and excluded methods from the Trait
 
 ```js
@@ -75,7 +75,7 @@ Basically, we have a few Traits (classes) TFirst, TLast and we combine and apply
 ```js
 'use strict';
 
-import { traits, excludes, alias, requires }  from 'cocktail.next'
+import { traits, excludes, alias, requires }  from 'traits-decorator'
 
 class TFirst {
 
