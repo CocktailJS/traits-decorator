@@ -1,12 +1,12 @@
 {
-  "name": "cocktail.next",
+  "name": "traits-decorator",
   "version": "1.0.0",
-  "description": "traits and mixins as decorators",
+  "description": "traits as decorator",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "babel-tape-runner test/*.js",
     "compile": "echo \"compiling...\" && babel -d lib/ src/",
-    "prepublish": "npm run compile"
+    "prepublish": "npm run compile && npm run test"
   },
   "author": {
     "name": "Maximiliano Fierro",
@@ -14,6 +14,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "babel": "^5.6.6"
+    "babel": "^5.6.6",
+    "babel-tape-runner": "^1.1.0",
+    "tap": "^1.3.1"
   }
 }
