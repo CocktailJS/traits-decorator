@@ -23,14 +23,14 @@ npm i -S git://github.com/cocktailjs/traits-decorator
 
 ## Decorators
 
-###@traits(Trait1, ...TraitN)
+### @traits(Trait1, ...TraitN)
 Applicable to `class` definition. It will apply all the given Traits to the class.
 
 ```js
 @traits(TExample) class MyClass {}
 ```
 
-###@requires(description1, ...descriptionN)
+### @requires(description1, ...descriptionN)
 Applicable to a method defined in a Trait. The decorator **does nothing** but it serves as a documentation to reflect what method / property the method needs access to.
 
 ```js
@@ -73,7 +73,7 @@ class MyClass {}
 ## Usage
 Basically, we have a few Traits (classes) TFirst, TLast and we combine and apply them by using `traits` decorator:
 
->example.js
+> example.js
 
 ```js
 'use strict';
