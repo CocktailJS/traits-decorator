@@ -3,7 +3,6 @@
 const _REF_ = Symbol()
 const _COCKTAIL_REQUIRED_NAME_ = '$$required$$'
 
-
 function _filterKeys(key) {
     return !key.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)
 }
@@ -20,7 +19,6 @@ function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
         traitMethodIsNotARequired = sameMethodName && !_isRequiredMethod(traitProto, methodName),
         subjecMethodIsNotARequired = sameMethodName && !_isRequiredMethod(subjectProto, methodName)
 
-
     if ( sameMethodName && methodsAreNotTheSame && traitMethodIsNotARequired && subjecMethodIsNotARequired) {
         throw new Error('Method named: ' + methodName + ' is defined twice.' )
     }
@@ -31,7 +29,6 @@ function _raiseErrorIfItIsState(key, traitProto) {
         throw new Error('Trait MUST NOT contain any state. Found: ' + key + ' as state while processing trait');
     }
 }
-
 
 function _isRequiredMethod(target, methodName) {
     let method = target[methodName]
@@ -50,7 +47,7 @@ function _applyIfNotExcluded(method, traitProto, subject, aliases, excluded) {
             Object.defineProperty(subject, alias, Object.getOwnPropertyDescriptor(traitProto, method))
         }
     }
-    
+
 }
 
 // trait or trait descriptor
@@ -67,7 +64,6 @@ function _excludes() {
     return this.excludes || []
 }
 // --
-
 
 function _apply(t) {
     let subject  = this,
