@@ -1,8 +1,12 @@
 {
   "name": "traits-decorator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Apply traits with decorators",
-  "keywords": ["traits", "decorator", "class"],
+  "keywords": [
+    "traits",
+    "decorator",
+    "class"
+  ],
   "main": "lib/index.js",
   "scripts": {
     "test": "babel-tape-runner test/*.js",
@@ -19,7 +23,7 @@
   },
   "bugs": {
     "url": "https://github.com/CocktailJS/traits-decorator/issues"
-  },  
+  },
   "license": "MIT",
   "devDependencies": {
     "babel": "^5.6.6",
