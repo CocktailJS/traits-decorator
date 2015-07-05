@@ -7,8 +7,9 @@ function _filterKeys(key) {
     return !key.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)
 }
 
-function _applyMethod(method, traitProto, subject, aliases, excluded) {
-    _applyIfNotExcluded(method, traitProto, subject, aliases, excluded)
+function _isRequiredMethod(target, methodName) {
+    let method = target[methodName]
+    return method && method.name === _COCKTAIL_REQUIRED_NAME_
 }
 
 function _raiseErrorIfConflict(methodName, traitProto, subjectProto) {
@@ -30,24 +31,22 @@ function _raiseErrorIfItIsState(key, traitProto) {
     }
 }
 
-function _isRequiredMethod(target, methodName) {
-    let method = target[methodName]
-    return method && method.name === _COCKTAIL_REQUIRED_NAME_
-}
-
 function _applyIfNotExcluded(method, traitProto, subject, aliases, excluded) {
 
     if (excluded.indexOf(method) === -1) {
-       
-        let alias = aliases[method] || method
-       
-        _raiseErrorIfConflict(alias, traitProto, subject)
-       
-        if (!subject[alias] || _isRequiredMethod(subject, alias)) {
-            Object.defineProperty(subject, alias, Object.getOwnPropertyDescriptor(traitProto, method))
+        let _alias = aliases[method] || method
+
+        _raiseErrorIfConflict(_alias, traitProto, subject)
+
+        if (!subject[_alias] || _isRequiredMethod(subject, _alias)) {
+            Object.defineProperty(subject, _alias, Object.getOwnPropertyDescriptor(traitProto, method))
         }
     }
 
+}
+
+function _applyMethod(method, traitProto, subject, aliases, excluded) {
+    _applyIfNotExcluded(method, traitProto, subject, aliases, excluded)
 }
 
 // trait or trait descriptor
@@ -74,8 +73,8 @@ function _apply(t) {
 
     Object.getOwnPropertyNames(tp)
         .filter(_filterKeys)
-        .forEach(function(method) { 
-            _raiseErrorIfItIsState(method, tp)       
+        .forEach(function(method) {
+            _raiseErrorIfItIsState(method, tp)
             _applyMethod(method, tp, subject, aliases, excluded)
         })
 }
@@ -99,9 +98,9 @@ function _asDescriptor() {
  * Applies all traits as part of the target class.
  * @params Trait1, ...TraitN {Class|Object}
  * @usage
- *    
+ *
  *    @traits(TExample) class MyClass {}
- *    
+ *
  */
 export function traits(...traitList) {
     return function (target) {
@@ -113,19 +112,19 @@ export function traits(...traitList) {
 
 /**
  * @decorator requires
- * Does Nothing. 
+ * Does Nothing.
  * It's intended to describe / document what methods or properties should be provided by the host class.
  * @params Description1, ...DescriptionN {String}
  * @usage
  *
  * class TPrintCollection {
- * 
+ *
  *     @requires('collection')
  *     printCollection() {
  *         console.log(this.collection)
- *     }    
- * }    
- * 
+ *     }
+ * }
+ *
  */
 export function requires() {
     return function (target, name, descriptor) {  /*do nothing*/ };
@@ -143,10 +142,10 @@ export function requires() {
  * @traits(TExample::excludes('methodOne', 'menthodTwo')) class MyClass {}
  *
  */
-export function excludes(...excludes) {
+export function excludes(...excludesList) {
     let descriptor = this::_asDescriptor()
 
-    descriptor.excludes = excludes
+    descriptor.excludes = excludesList
 
     return descriptor
 }
@@ -181,11 +180,11 @@ export function alias(aliases: {}) {
  */
 export function as(options: {alias: {}, excludes: []}) {
     let descriptor = this::_asDescriptor(),
-        { alias: _alias, excludes: _excludes } = options
+        { alias: _alias, excludes: _excludesList } = options
 
     descriptor
         ::alias(_alias)
-        ::excludes(..._excludes)
+        ::excludes(..._excludesList)
 
     return descriptor
 }

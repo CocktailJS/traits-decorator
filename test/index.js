@@ -62,33 +62,41 @@ tap.test('@traits should apply multiple traits to a class', function(suite) {
 
 tap.test('@traits should throw an error if there is state defined in trait', function(t) {
     const Invalid = { state: 1 }
-    
+
     t.throws(function() {
 
         @traits(Invalid) class SUT {}
-    
+        t.notOk(SUT)
+
     }, 'state is not allowed in a Trait')
 
     t.end()
 })
 
 tap.test('@traits:conflicts', function(suite) {
-    
-    tap.test('@traits should throw an error if there is a name collision', function(t) {
-        
-        t.throws(function() {
-            
-            @traits(TFoo) class SUT { foo() { console.log('class') } }
 
+    tap.test('@traits should throw an error if there is a name collision', function(t) {
+
+        t.throws(function() {
+
+            @traits(TFoo) class SUT {
+                foo() {
+                    console.log('class')
+                }
+            }
+
+            t.notOk(SUT)
         }, 'name collision should be resolved')
 
         t.end()
     })
 
     tap.test('::alias - solve conflict by aliasing collision method', function(t) {
-        @traits(TFoo::alias({foo: 'collisionFoo'})) 
-        class SUT { 
-            foo() { console.log('class') }
+        @traits(TFoo::alias({foo: 'collisionFoo'}))
+        class SUT {
+            foo() {
+                console.log('class')
+            }
         }
 
         t.ok(SUT.prototype.collisionFoo, 'collisionFoo alias should be part of SUT')
@@ -96,15 +104,17 @@ tap.test('@traits:conflicts', function(suite) {
 
         t.end()
     })
-    
+
     tap.test('::excludes - solve conflict by excluding collision method', function(t) {
-        @traits(TFoo::excludes('foo')) 
-        class SUT { 
-            foo() { console.log('class') }
+        @traits(TFoo::excludes('foo'))
+        class SUT {
+            foo() {
+                console.log('class')
+            }
         }
 
         t.ok(SUT.prototype.foo, 'foo should be defined')
-        
+
         t.end()
     })
 
