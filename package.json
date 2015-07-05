@@ -12,7 +12,7 @@
     "test": "babel-tape-runner test/*.js",
     "compile": "echo \"compiling...\" && babel -d lib/ src/",
     "lint": "eslint --quiet src/ test/",
-    "prepublish": "npm run compile && npm run test"
+    "prepublish": "npm run compile && npm run test && npm run lint"
   },
   "author": {
     "name": "Maximiliano Fierro",
