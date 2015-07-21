@@ -144,3 +144,5 @@ babel-node --stage 0 example.js
 
 ## Update
 @mixins decorator has been removed. If you want to use `mixins` please use [mixins-decorator](https://www.npmjs.com/package/mixins-decorator) package.
+
+## License MIT
