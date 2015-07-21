@@ -26,6 +26,5 @@ rules:
   
     # We use this for private/internal variables
     no-underscore-dangle: 0
-    semi: 0
     key-spacing: 0
     no-multi-spaces: 0
