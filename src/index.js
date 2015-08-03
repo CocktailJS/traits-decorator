@@ -159,7 +159,7 @@ export function excludes(...excludesList) {
  * @traits(TExample::alias({'methodOne': 'parentMethodOne'})) class MyClass {}
  *
  */
-export function alias(aliases: {}) {
+export function alias(aliases = {}) {
     let descriptor = this::_asDescriptor();
 
     descriptor.alias = aliases;
@@ -178,7 +178,7 @@ export function alias(aliases: {}) {
  * @traits( TExample::as({ alias: {'methodOne': 'parentMethodOne'}, excludes: ['methodTwo'] }) ) class MyClass {}
  *
  */
-export function as(options: {alias: {}, excludes: []}) {
+export function as(options = {alias: {}, excludes: []}) {
     let descriptor = this::_asDescriptor(),
         { alias: _alias, excludes: _excludesList } = options;
 

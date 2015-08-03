@@ -106,6 +106,19 @@ tap.test('@traits:conflicts', function(suite) {
         t.end();
     });
 
+    tap.test('::alias - with no parameters or empty object does nothing', function(t) {
+        @traits(TFoo::alias(), TFoo::alias({}))
+        class SUT {
+            myFoo() {
+                console.log('class');
+            }
+        }
+
+        t.ok(SUT.prototype.foo, 'foo should be defined');
+        t.ok(SUT.prototype.myFoo, 'myFoo should be defined');
+        t.end();
+    });
+
     tap.test('::excludes - solve conflict by excluding collision method', function(t) {
         @traits(TFoo::excludes('foo'))
         class SUT {
