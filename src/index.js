@@ -1,4 +1,3 @@
-'use strict';
 
 const _REF_ = Symbol();
 const _COCKTAIL_REQUIRED_NAME_ = '$$required$$';
