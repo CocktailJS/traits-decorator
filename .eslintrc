@@ -13,7 +13,7 @@ rules:
 
     brace-style: 2
     space-after-keywords: 2
-    strict: 2
+    strict: [2,"global"]
     no-unused-expressions: 2
     block-scoped-var: 2
     eol-last: 2
