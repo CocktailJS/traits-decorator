@@ -12,7 +12,7 @@ rules:
     # ERRORS
 
     brace-style: 2
-    space-after-keywords: 2
+    keyword-spacing: 2
     strict: [2,"global"]
     no-unused-expressions: 2
     block-scoped-var: 2
@@ -23,7 +23,7 @@ rules:
     quotes: [2, 'single']
 
     # DISABLED
-  
+
     # We use this for private/internal variables
     no-underscore-dangle: 0
     key-spacing: 0
