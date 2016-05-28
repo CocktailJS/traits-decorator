@@ -67,7 +67,7 @@ class MyClass {}
 Applicable to Trait definition in '@traits'. It will apply aliases and excluded methods from the Trait
 
 ```js
-@traits( TExample:as({alias: {baz: 'parentBaz'}, excludes:['foo', 'bar'] }) )
+@traits( TExample::as({alias: {baz: 'parentBaz'}, excludes:['foo', 'bar'] }) )
 class MyClass {}
 ```
 
